@@ -14,9 +14,11 @@
             height: 100vh;
             font-family: 'Ubuntu', Arial, sans-serif;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
+            color: #fff;
         }
         .reels {
             display: flex;
@@ -50,6 +52,7 @@
     </style>
 </head>
 <body>
+    <h1>Slot Machine</h1>
     <div class="reels">
         <div class="reel" id="reel1">
             <div class="reel-content"></div>
@@ -61,10 +64,9 @@
             <div class="reel-content"></div>
         </div>
     </div>
-    <div>
-        <button id="spinButton">Spin</button>
-        <div id="points">Points: 0</div>
-    </div>
+
+    <button id="spinButton">Spin</button>
+    <div id="points">Points: 0</div>
 
     <script>
         const symbols = ["7️⃣", "🔔", "🍋", "🍊", "🍌", "🍒", "🍉", "🪙", "💵", "🏆"];
