@@ -18,9 +18,9 @@
             align-items: center;
             text-align: center;
         }
-        .container {
+        .reels {
             display: flex;
-            align-items: center;
+            justify-content: center;
         }
         .reel {
             font-size: 2em;
@@ -50,7 +50,7 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="reels">
         <div class="reel" id="reel1">
             <div class="reel-content"></div>
         </div>
@@ -61,8 +61,10 @@
             <div class="reel-content"></div>
         </div>
     </div>
-    <button id="spinButton">Spin</button>
-    <div id="points">Points: 0</div>
+    <div>
+        <button id="spinButton">Spin</button>
+        <div id="points">Points: 0</div>
+    </div>
 
     <script>
         const symbols = ["7️⃣", "🔔", "🍋", "🍊", "🍌", "🍒", "🍉", "🪙", "💵", "🏆"];
