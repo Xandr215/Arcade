@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slot Machine</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .reel {
+            display: inline-block;
+            font-size: 2em;
+            width: 50px;
+            height: 50px;
+            border: 2px solid #000;
+            margin: 0 10px;
+        }
+        #spinButton {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 1.5em;
+        }
+        #passcodePrompt {
+            display: none;
+            margin-top: 20px;
+        }
+        #points {
+            font-size: 1.5em;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Slot Machine</h1>
+    <div id="reel1" class="reel">?</div>
+    <div id="reel2" class="reel">?</div>
+    <div id="reel3" class="reel">?</div>
+    <button id="spinButton">Spin</button>
+    <div id="points">Points: 0</div>
+
+    <div id="passcodePrompt">
+        <label for="passcode">Enter Passcode: </label>
+        <input type="text" id="passcode">
+        <button id="submitPasscode">Submit</button>
+    </div>
+
+    <script>
+        const symbols = ["🍒", "🍋", "🍊", "🍉", "🔔", "⭐", "💎"];
+        let points = 0;
+        let playCount = 1;
+        const passcodes = {
+            "5-plays": "@JAXE_Arcade215E-X",
+            "10-plays": "~J4X3_@rc@d3215E-X",
+            "unlimited": "~@J4X3-Unlimited-@rc@d3"
+        };
+
+        function getRandomSymbol() {
+            const randomIndex = Math.floor(Math.random() * symbols.length);
+            return symbols[randomIndex];
+        }
+
+        function spinReels() {
+            if (playCount <= 0) {
+                alert("You need to enter the passcode to play again.");
+                document.getElementById("passcodePrompt").style.display = "block";
+                return;
+            }
+
+            playCount--;
+
+            const reel1 = getRandomSymbol();
+            const reel2 = getRandomSymbol();
+            const reel3 = getRandomSymbol();
+
+            document.getElementById("reel1").innerText = reel1;
+            document.getElementById("reel2").innerText = reel2;
+            document.getElementById("reel3").innerText = reel3;
+
+            if (reel1 === reel2 && reel2 === reel3) {
+                let pointsAwarded;
+                if (reel1 === "💎") {
+                    pointsAwarded = 100; // Highest points for three diamonds
+                } else if (reel1 === "⭐") {
+                    pointsAwarded = 50;
+                } else if (reel1 === "🔔") {
+                    pointsAwarded = 30;
+                } else {
+                    pointsAwarded = 10; // Points for other matching symbols
+                }
+                points += pointsAwarded;
+            } else {
+                
+            }
+
+            document.getElementById("points").innerText = `Points: ${points}`;
+        }
+
+        function submitPasscode() {
+            const inputPasscode = document.getElementById("passcode").value;
+            if (inputPasscode === passcodes["5-plays"]) {
+                playCount = 5;
+            } else if (inputPasscode === passcodes["10-plays"]) {
+                playCount = 10;
+            } else if (inputPasscode === passcodes["unlimited"]) {
+                playCount = Infinity;
+            } else {
+                alert("Incorrect passcode. Try again.");
+                return;
+            }
+            
+            document.getElementById("passcodePrompt").style.display = "none";
+            document.getElementById("passcode").value = ""; // Clear passcode input
+            alert("Passcode accepted! You can play again.");
+        }
+
+        document.getElementById("spinButton").addEventListener("click", spinReels);
+        document.getElementById("submitPasscode").addEventListener("click", submitPasscode);
+    </script>
+</body>
+</html>

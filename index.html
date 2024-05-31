@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    <title>Arcade</title>
+    <style>
+        body {
+            background: linear-gradient(to bottom right, #20b2aa, #00ff00);
+            margin: 0;
+            height: 100vh;
+            font-family: 'Ubuntu', Arial, Helvetica, sans-serif;
+            color: #ffffff;
+        }
+        .game {
+            text-align: center;
+            height: 480px;
+            width: 640px;
+            border-radius: 4px;
+            border: 2px solid #20b2aa;
+            display: inline-block;
+            margin: 10px;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Ubuntu';
+        }
+        .game img {
+            width: 100%;
+            height: auto;
+        }
+        .game-title {
+            position: absolute;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            width: 100%;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 24px;
+        }
+        .game-container {
+            text-align: center;
+            font-family: 'Ubuntu', Arial, Helvetica, sans-serif;
+        }
+        .game a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">Welcome to the Arcade!</h1>
+    <div id="game-container" class="game-container">
+        <div class="game">
+            <a href="cf/index.html">
+                <img src="cf/image.png" alt="Court Fighters">
+                <div class="game-title">Play Court Fighters</div>
+            </a>
+        </div>
+        <div class="game">
+            <a href="ccp/index.html">
+                <img src="ccp/image.png" alt="Corgi Care+">
+                <div class="game-title">Play Corgi Care+</div>
+            </a>
+        </div>
+        <div class="game">
+            <a href="slots/index.html">
+                <img src="slots/image.png" alt="Slots">
+                <div class="game-title">Play Slots</div>
+            </a>
+        </div>
+        <div class="game">
+            <a href="https://coolmathgames.com/0-plactions/play">
+                <img src="cmg/plactions.png" alt="Plactions">
+                <div class="game-title">Play Plactions</div>
+            </a>
+        </div>
+        <div class="game">
+            <a href="https://coolmathgames.com/0-opposite-day/play">
+                <img src="cmg/oppositeday.png" alt="Opposite Day">
+                <div class="game-title">Play Opposite Day</div>
+            </a>
+        </div>
+        <div class="game">
+            <a href="https://coolmathgames.com/0-suika-watermelon-game/play">
+                <img src="cmg/suika.png" alt="Suika">
+                <div class="game-title">Play Suika</div>
+            </a>
+        </div>
+        <div class="game">
+            <a href="cs/index.html">
+                <img src="cs/image.png" alt="Crystal Seeker">
+                <div class="game-title">Play Crystal Seeker</div>
+            </a>
+        </div>
+        <div class="game">
+            <a href="flappy/index.html">
+                <img src="flappy/image.png" alt="Flappy Bird">
+                <div class="game-title">Play Flappy Bird</div>
+            </a>
+        </div>
+    </div>
+</body>
+</html>
