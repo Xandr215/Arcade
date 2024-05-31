@@ -4,29 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Slot Machine</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom right, #20b2aa, #00ff00);
+            margin: 0;
+            height: 100vh;
+            font-family: 'Ubuntu', Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-            margin-top: 50px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .reels {
+            display: flex;
+            margin-bottom: 20px;
         }
         .reel {
-            display: inline-block;
             font-size: 2em;
             width: 50px;
-            height: 50px;
+            height: 150px; /* increased height to display more symbols */
             border: 2px solid #000;
             margin: 0 10px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .reel-content {
+            display: flex;
+            flex-direction: column;
+            animation: spin 1s cubic-bezier(0.23, 1, 0.32, 1) infinite;
+        }
+        @keyframes spin {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100%); }
         }
         #spinButton {
             display: block;
             margin: 20px auto;
             padding: 10px 20px;
             font-size: 1.5em;
-        }
-        #passcodePrompt {
-            display: none;
-            margin-top: 20px;
         }
         #points {
             font-size: 1.5em;
@@ -35,50 +60,69 @@
     </style>
 </head>
 <body>
-    <h1>Slot Machine</h1>
-    <div id="reel1" class="reel">?</div>
-    <div id="reel2" class="reel">?</div>
-    <div id="reel3" class="reel">?</div>
-    <button id="spinButton">Spin</button>
-    <div id="points">Points: 0</div>
-
-    <div id="passcodePrompt">
-        <label for="passcode">Enter Passcode: </label>
-        <input type="text" id="passcode">
-        <button id="submitPasscode">Submit</button>
+    <div class="container">
+        <h1>Slot Machine</h1>
+        <div class="reels">
+            <div id="reel1" class="reel">
+                <div class="reel-content">?</div>
+            </div>
+            <div id="reel2" class="reel">
+                <div class="reel-content">?</div>
+            </div>
+            <div id="reel3" class="reel">
+                <div class="reel-content">?</div>
+            </div>
+        </div>
+        <button id="spinButton">Spin</button>
+        <div id="points">Points: 0</div>
     </div>
 
     <script>
         const symbols = ["🍒", "🍋", "🍊", "🍉", "🔔", "⭐", "💎"];
         let points = 0;
-        let playCount = 1;
-        const passcodes = {
-            "5-plays": "@JAXE_Arcade215E-X",
-            "10-plays": "~J4X3_@rc@d3215E-X",
-            "unlimited": "~@J4X3-Unlimited-@rc@d3"
-        };
 
         function getRandomSymbol() {
             const randomIndex = Math.floor(Math.random() * symbols.length);
             return symbols[randomIndex];
         }
 
-        function spinReels() {
-            if (playCount <= 0) {
-                alert("You need to enter the passcode to play again.");
-                document.getElementById("passcodePrompt").style.display = "block";
-                return;
+        function createReelAnimation(reelContent, finalSymbol) {
+            let animationContent = '';
+            for (let i = 0; i < 20; i++) {
+                animationContent += `<div>${getRandomSymbol()}</div>`;
             }
+            animationContent += `<div>${finalSymbol}</div>`;
+            reelContent.innerHTML = animationContent;
+        }
 
-            playCount--;
-
+        function spinReels() {
             const reel1 = getRandomSymbol();
             const reel2 = getRandomSymbol();
             const reel3 = getRandomSymbol();
 
-            document.getElementById("reel1").innerText = reel1;
-            document.getElementById("reel2").innerText = reel2;
-            document.getElementById("reel3").innerText = reel3;
+            const reel1Content = document.querySelector('#reel1 .reel-content');
+            const reel2Content = document.querySelector('#reel2 .reel-content');
+            const reel3Content = document.querySelector('#reel3 .reel-content');
+
+            createReelAnimation(reel1Content, reel1);
+            createReelAnimation(reel2Content, reel2);
+            createReelAnimation(reel3Content, reel3);
+
+            document.querySelectorAll('.reel-content').forEach(reelContent => {
+                reelContent.style.animation = 'spin 1s cubic-bezier(0.23, 1, 0.32, 1) infinite';
+            });
+
+            setTimeout(() => {
+                document.querySelectorAll('.reel-content').forEach(reelContent => {
+                    reelContent.style.animation = 'none';
+                });
+
+                document.querySelectorAll('.reel-content div:last-child').forEach((div, index) => {
+                    if (index === 0) reel1Content.innerHTML = div.innerHTML;
+                    if (index === 1) reel2Content.innerHTML = div.innerHTML;
+                    if (index === 2) reel3Content.innerHTML = div.innerHTML;
+                });
+            }, 1000);
 
             if (reel1 === reel2 && reel2 === reel3) {
                 let pointsAwarded;
@@ -92,33 +136,12 @@
                     pointsAwarded = 10; // Points for other matching symbols
                 }
                 points += pointsAwarded;
-            } else {
-                
             }
 
             document.getElementById("points").innerText = `Points: ${points}`;
         }
 
-        function submitPasscode() {
-            const inputPasscode = document.getElementById("passcode").value;
-            if (inputPasscode === passcodes["5-plays"]) {
-                playCount = 5;
-            } else if (inputPasscode === passcodes["10-plays"]) {
-                playCount = 10;
-            } else if (inputPasscode === passcodes["unlimited"]) {
-                playCount = Infinity;
-            } else {
-                alert("Incorrect passcode. Try again.");
-                return;
-            }
-            
-            document.getElementById("passcodePrompt").style.display = "none";
-            document.getElementById("passcode").value = ""; // Clear passcode input
-            alert("Passcode accepted! You can play again.");
-        }
-
         document.getElementById("spinButton").addEventListener("click", spinReels);
-        document.getElementById("submitPasscode").addEventListener("click", submitPasscode);
     </script>
 </body>
 </html>
