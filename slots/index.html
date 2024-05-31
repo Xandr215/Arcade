@@ -23,14 +23,10 @@
             flex-direction: column;
             align-items: center;
         }
-        .reels {
-            display: flex;
-            margin-bottom: 20px;
-        }
         .reel {
             font-size: 2em;
             width: 50px;
-            height: 150px; /* increased height to display more symbols */
+            height: 50px; /* Adjusted height to display one symbol at a time */
             border: 2px solid #000;
             margin: 0 10px;
             overflow: hidden;
@@ -41,7 +37,7 @@
         .reel-content {
             display: flex;
             flex-direction: column;
-            animation: spin 1s cubic-bezier(0.23, 1, 0.32, 1) infinite;
+            animation: spin 2s cubic-bezier(0.23, 1, 0.32, 1) infinite; /* Slower animation */
         }
         @keyframes spin {
             0% { transform: translateY(0); }
@@ -62,23 +58,21 @@
 <body>
     <div class="container">
         <h1>Slot Machine</h1>
-        <div class="reels">
-            <div id="reel1" class="reel">
-                <div class="reel-content">7</div>
-            </div>
-            <div id="reel2" class="reel">
-                <div class="reel-content">7</div>
-            </div>
-            <div id="reel3" class="reel">
-                <div class="reel-content">7</div>
-            </div>
+        <div class="reel" id="reel1">
+            <div class="reel-content"></div>
+        </div>
+        <div class="reel" id="reel2">
+            <div class="reel-content"></div>
+        </div>
+        <div class="reel" id="reel3">
+            <div class="reel-content"></div>
         </div>
         <button id="spinButton">Spin</button>
         <div id="points">Points: 0</div>
     </div>
 
     <script>
-        const symbols = ["7️⃣", "🔔", "🍋", "🍊", "🍌", "🍒", "🍉", "🪙", "💵", "🏆"]; // Adjusted symbols
+        const symbols = ["7", "🔔", "🍋", "🍊", "🍌", "🍒", "🍉", "🪙", "💵", "🏆"];
         let points = 0;
 
         function getRandomSymbol() {
@@ -86,59 +80,32 @@
             return symbols[randomIndex];
         }
 
-        function createReelAnimation(reelContent, finalSymbol) {
-            let animationContent = '';
-            for (let i = 0; i < 20; i++) {
-                animationContent += `<div>${getRandomSymbol()}</div>`;
-            }
-            animationContent += `<div>${finalSymbol}</div>`;
-            reelContent.innerHTML = animationContent;
+        function spinReel(reelId) {
+            const reelContent = document.querySelector(`#${reelId} .reel-content`);
+            const symbol = getRandomSymbol();
+            reelContent.innerHTML = `<div>${symbol}</div>`;
         }
 
-        function spinReels() {
-            const reel1 = getRandomSymbol();
-            const reel2 = getRandomSymbol();
-            const reel3 = getRandomSymbol();
+        function spinAllReels() {
+            spinReel("reel1");
+            spinReel("reel2");
+            spinReel("reel3");
 
-            const reel1Content = document.querySelector('#reel1 .reel-content');
-            const reel2Content = document.querySelector('#reel2 .reel-content');
-            const reel3Content = document.querySelector('#reel3 .reel-content');
-
-            createReelAnimation(reel1Content, reel1);
-            createReelAnimation(reel2Content, reel2);
-            createReelAnimation(reel3Content, reel3);
-
-            document.querySelectorAll('.reel-content').forEach(reelContent => {
-                reelContent.style.animation = 'spin 1s cubic-bezier(0.23, 1, 0.32, 1) infinite';
-            });
-
-            setTimeout(() => {
-                document.querySelectorAll('.reel-content').forEach(reelContent => {
-                    reelContent.style.animation = 'none';
-                });
-
-                document.querySelectorAll('.reel-content div:last-child').forEach((div, index) => {
-                    if (index === 0) reel1Content.innerHTML = div.innerHTML;
-                    if (index === 1) reel2Content.innerHTML = div.innerHTML;
-                    if (index === 2) reel3Content.innerHTML = div.innerHTML;
-                });
-            }, 1000);
-
-            // Adjusted point values
-            if (reel1 === reel2 && reel2 === reel3) {
+            if (document.querySelectorAll('.reel-content div')[0].innerText === document.querySelectorAll('.reel-content div')[1].innerText && document.querySelectorAll('.reel-content div')[1].innerText === document.querySelectorAll('.reel-content div')[2].innerText) {
                 let pointsAwarded;
-                if (reel1 === "7️⃣") {
-                    pointsAwarded = 100; // Highest points for three 7s
-                } else if (reel1 === "🏆") {
+                const symbol = document.querySelectorAll('.reel-content div')[0].innerText;
+                if (symbol === "7") {
+                    pointsAwarded = 100;
+                } else if (symbol === "🏆") {
                     pointsAwarded = 50;
-                } else if (reel1 === "🔔") {
+                } else if (symbol === "🔔") {
                     pointsAwarded = 30;
-                } else if (reel1 === "🪙") {
-                    pointsAwarded = 20; // Points for gold coin
-                } else if (reel1 === "🍒") {
+                } else if (symbol === "🪙") {
+                    pointsAwarded = 20;
+                } else if (symbol === "🍒") {
                     pointsAwarded = 10;
                 } else {
-                    pointsAwarded = 5; // Default points for other matching symbols
+                    pointsAwarded = 5;
                 }
                 points += pointsAwarded;
             }
@@ -146,7 +113,7 @@
             document.getElementById("points").innerText = `Points: ${points}`;
         }
 
-        document.getElementById("spinButton").addEventListener("click", spinReels);
+        document.getElementById("spinButton").addEventListener("click", spinAllReels);
     </script>
 </body>
 </html>
