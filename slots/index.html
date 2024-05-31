@@ -64,13 +64,13 @@
         <h1>Slot Machine</h1>
         <div class="reels">
             <div id="reel1" class="reel">
-                <div class="reel-content">?</div>
+                <div class="reel-content">7</div>
             </div>
             <div id="reel2" class="reel">
-                <div class="reel-content">?</div>
+                <div class="reel-content">7</div>
             </div>
             <div id="reel3" class="reel">
-                <div class="reel-content">?</div>
+                <div class="reel-content">7</div>
             </div>
         </div>
         <button id="spinButton">Spin</button>
@@ -78,7 +78,7 @@
     </div>
 
     <script>
-        const symbols = ["🍒", "🍋", "🍊", "🍉", "🔔", "⭐", "💎"];
+        const symbols = ["7️⃣", "🔔", "🍋", "🍊", "🍌", "🍒", "🍉", "🪙", "💵", "🏆"]; // Adjusted symbols
         let points = 0;
 
         function getRandomSymbol() {
@@ -124,16 +124,21 @@
                 });
             }, 1000);
 
+            // Adjusted point values
             if (reel1 === reel2 && reel2 === reel3) {
                 let pointsAwarded;
-                if (reel1 === "💎") {
-                    pointsAwarded = 100; // Highest points for three diamonds
-                } else if (reel1 === "⭐") {
+                if (reel1 === "7️⃣") {
+                    pointsAwarded = 100; // Highest points for three 7s
+                } else if (reel1 === "🏆") {
                     pointsAwarded = 50;
                 } else if (reel1 === "🔔") {
                     pointsAwarded = 30;
+                } else if (reel1 === "🪙") {
+                    pointsAwarded = 20; // Points for gold coin
+                } else if (reel1 === "🍒") {
+                    pointsAwarded = 10;
                 } else {
-                    pointsAwarded = 10; // Points for other matching symbols
+                    pointsAwarded = 5; // Default points for other matching symbols
                 }
                 points += pointsAwarded;
             }
