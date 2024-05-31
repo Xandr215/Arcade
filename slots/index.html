@@ -20,7 +20,6 @@
         }
         .container {
             display: flex;
-            flex-direction: column;
             align-items: center;
         }
         .reel {
@@ -37,11 +36,6 @@
         .reel-content {
             display: flex;
             flex-direction: column;
-            animation: spin 2s cubic-bezier(0.23, 1, 0.32, 1) infinite; /* Slower animation */
-        }
-        @keyframes spin {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-100%); }
         }
         #spinButton {
             display: block;
@@ -57,7 +51,6 @@
 </head>
 <body>
     <div class="container">
-        <h1>Slot Machine</h1>
         <div class="reel" id="reel1">
             <div class="reel-content"></div>
         </div>
@@ -67,12 +60,12 @@
         <div class="reel" id="reel3">
             <div class="reel-content"></div>
         </div>
-        <button id="spinButton">Spin</button>
-        <div id="points">Points: 0</div>
     </div>
+    <button id="spinButton">Spin</button>
+    <div id="points">Points: 0</div>
 
     <script>
-        const symbols = ["7", "🔔", "🍋", "🍊", "🍌", "🍒", "🍉", "🪙", "💵", "🏆"];
+        const symbols = ["7️⃣", "🔔", "🍋", "🍊", "🍌", "🍒", "🍉", "🪙", "💵", "🏆"];
         let points = 0;
 
         function getRandomSymbol() {
@@ -94,7 +87,7 @@
             if (document.querySelectorAll('.reel-content div')[0].innerText === document.querySelectorAll('.reel-content div')[1].innerText && document.querySelectorAll('.reel-content div')[1].innerText === document.querySelectorAll('.reel-content div')[2].innerText) {
                 let pointsAwarded;
                 const symbol = document.querySelectorAll('.reel-content div')[0].innerText;
-                if (symbol === "7") {
+                if (symbol === "7️⃣") {
                     pointsAwarded = 100;
                 } else if (symbol === "🏆") {
                     pointsAwarded = 50;
