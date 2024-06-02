@@ -9,126 +9,119 @@
     <title>Arcade</title>
     <style>
         body {
-            background: linear-gradient(to bottom right, #20b2aa, #00ff00);
+            background: linear-gradient(to bottom right, #20b2aa, #0f0);
             margin: 0;
             height: 100vh;
             font-family: 'Ubuntu', Arial, Helvetica, sans-serif;
             color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-        .game {
-            text-align: center;
-            height: 300px;
-            width: 400px;
-            border-radius: 4px;
-            border: 2px solid #20b2aa;
-            display: inline-block;
-            margin: 10px;
-            position: relative;
-            overflow: hidden;
-            font-family: 'Ubuntu';
-        }
-        .game img {
-            width: 100%;
-            height: auto;
-        }
-        .game-title {
-            position: absolute;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            color: white;
-            width: 100%;
-            text-align: center;
-            padding: 10px 0;
-            font-size: 24px;
-        }
-        .game-container {
-            text-align: center;
-            font-family: 'Ubuntu', Arial, Helvetica, sans-serif;
-        }
-        .game a {
-            color: #ffffff;
+
+        a {
             text-decoration: none;
-            display: block;
-            height: 100%;
-            width: 100%;
+            color: white;
+        }
+
+        a:visited {
+            color: white;
+        }
+
+        .container {
+            display: flex;
+            width: 80%;
+            height: 80%;
+        }
+
+        .preview {
+            flex: 3;
+            width: 1280;
+            height: 960;
+            aspect-ratio: 4 / 3;
+            border: 2px solid white;
+            margin-right: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .preview img {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            display: none;
+        }
+
+        .game-list {
+            flex: 2;
+            text-align: left;
+        }
+
+        .game-list h2 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .game-list ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .game-list li {
+            font-size: 24px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .game-list li:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .game-list li:hover .game-title {
+            color: yellow;
         }
     </style>
 </head>
 <body>
-    <h1 style="text-align: center;">Welcome to the Arcade!</h1>
-    <div id="game-container" class="game-container">
-        <div class="game">
-            <a href="cf/index.html">
-                <img src="cf/image.png" alt="Court Fighters">
-                <div class="game-title">Play Court Fighters</div>
-            </a>
+    <div class="container">
+        <div class="preview" id="preview">
+            <img id="gameImage" src="" alt="Game Preview">
         </div>
-        <div class="game">
-            <a href="ccp/index.html">
-                <img src="ccp/image.png" alt="Corgi Care+">
-                <div class="game-title">Play Corgi Care+</div>
-            </a>
-        </div>
-        <div class="game">
-            <a href="slots/index.html">
-                <img src="slots/image.png" alt="Slots">
-                <div class="game-title">Play Slots</div>
-            </a>
-        </div>
-        <div class="game">
-            <a href="https://coolmathgames.com/0-plactions/play">
-                <img src="cmg/plactions.png" alt="Plactions">
-                <div class="game-title">Play Plactions</div>
-            </a>
-        </div>
-        <div class="game">
-            <a href="https://coolmathgames.com/0-opposite-day/play">
-                <img src="cmg/oppositeday.png" alt="Opposite Day">
-                <div class="game-title">Play Opposite Day</div>
-            </a>
-        </div>
-        <div class="game">
-            <a href="https://coolmathgames.com/0-suika-watermelon-game/play">
-                <img src="cmg/suika.png" alt="Suika">
-                <div class="game-title">Play Suika</div>
-            </a>
-        </div>
-        <div class="game">
-            <a href="cs/index.html">
-                <img src="cs/image.png" alt="Crystal Seeker">
-                <div class="game-title">Play Crystal Seeker</div>
-            </a>
-        </div>
-        <div class="game">
-            <a href="flappy/index.html">
-                <img src="flappy/image.png" alt="Flappy Bird">
-                <div class="game-title">Play Flappy Bird</div>
-            </a>
-        </div>
-        <div class="game">
-            <a href="edgesurf/index.html">
-                <img src="edgesurf/image.png" alt="Edge Surf">
-                <div class="game-title">Play Let's Surf/Ski</div>
-            </a>
-        </div>
-        <div class="game">
-            <a href="rps/index.html">
-                <img src="rps/image.png" alt="Rock Paper Scissors">
-                <div class="game-title">Play Rock Paper Scissors</div>
-            </a>
-        </div>
-        <div class="game">
-            <a href="guessnum/index.html">
-                <img src="guessnum/image.png" alt="Guess the Number">
-                <div class="game-title">Play Guess the Number</div>
-            </a>
-        </div>
-        <div class="game">
-            <a href="memory/index.html">
-                <img src="memory/image.png" alt="Memory">
-                <div class="game-title">Play Memory</div>
-            </a>
+        <div class="game-list">
+            <h2>Games</h2>
+            <ul id="gameList">
+                <li data-img="cf/image.png"><a href="cf/index.html" data-img="cf/image.png" target=”_blank”>Court Fighters</a></li>
+                <li data-img="ccp/image.png"><a href="ccp/index.html" data-img="ccp/image.png" target="_blank">Corgi Care+</a></li>
+                <li data-img="slots/image.png"><a href="slots/index.html" data-img="slots/image.png" target="_blank">Slots</a></li>
+                <li data-img="cmg/plactions.png"><a href="https://coolmathgames.com/0-plactions/play" data-img="cmg/plactions.png" target="_blank">Plactions</a></li>
+                <li data-img="cmg/oppositeday.png"><a href="https://coolmathgames.com/0-opposite-day/play" data-img="cmg/oppositeday.png" target="_blank">Opposite Day</a></li>
+                <li data-img="cmg/suika.png"><a href="https://coolmathgames.com/0-suika-watermelon-game/play" data-img="cmg/suika.png" target="_blank">Suika</a></li>
+                <li data-img="cs/image.png"><a href="cs/index.html" data-img="cs/image.png" target="_blank">Crystal Seeker</a></li>
+                <li data-img="flappy/image.png"><a href="flappy/index.html" data-img="flappy/image.png" target="_blank">Flappy Bird</a></li>
+                <li data-img="edgesurf/image.png"><a href="edgesurf/index.html" data-img="edgesurf/image.png" target="_blank">Let's Surf/Ski</a></li>
+                <li data-img="rps/image.png"><a href="rps/index.html" data-img="rps/image.png" target="_blank">Rock Paper Scissors</a></li>
+                <li data-img="guessnum/image.png"><a href="guessnum/index.html" data-img="guessnum/image.png" target="_blank">Guess the Number</a></li>
+                <li data-img="memory/image.png"><a href="memory/index.html" data-img="memory/image.png" target="_blank">Memory</a></li>
+            </ul>
         </div>
     </div>
+    <script>
+        document.querySelectorAll('#gameList li').forEach(item => {
+            item.addEventListener('mouseover', event => {
+                const imgSrc = event.target.getAttribute('data-img');
+                const img = document.getElementById('gameImage');
+                img.src = imgSrc;
+                img.style.display = 'block';
+            });
+            item.addEventListener('mouseleave', event => {
+                const img = document.getElementById('gameImage');
+                img.style.display = 'none';
+            });
+        });
+    </script>
 </body>
 </html>
